@@ -66,9 +66,14 @@
   </head>
 
   <body>
-    <a-scene mindar-image="imageTargetSrc: targets_v2.mind;" color-space="sRGB"
-             renderer="colorManagement: true, physicallyCorrectLights"
-             vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+    <a-scene
+      mindar-image="imageTargetSrc: targets_v2.mind;"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+      embedded
+    >
 
       <a-assets>
         <a-asset-item id="avatarModel" src="shapes_teste4.glb"></a-asset-item>
@@ -78,34 +83,25 @@
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <!-- 3D main model -->
+        <!-- Animated main shape -->
         <a-gltf-model
-          id="model"
-          rotation="0 0 0"
+          src="#avatarModel"
           position="0 0 0.1"
           scale="0.1 0.1 0.1"
-          src="#avatarModel"
           animation__rotate="property: rotation; to: 0 0 360; dur: 10000; easing: linear; loop: true"
           animation__scale="property: scale; from: 0.1 0.1 0.1; to: 0.15 0.15 0.15; dur: 4000; dir: alternate; easing: easeInOutSine; loop: true"
         ></a-gltf-model>
 
-        <!-- Occluder: invisible but blocks -->
-        <a-box
-          position="0 0 0"
-          depth="0.01" height="0.5" width="0.9"
-          material="color: #000000; shader: flat; depthWrite: true; colorWrite: false;"
-        ></a-box>
-
-        <!-- Portal content inside occluder -->
+        <!-- Rings inside "portal" -->
         <a-gltf-model
           src="#ringsModel"
-          position="0 0 -0.05"
+          position="0 0 -0.1"
           scale="0.3 0.3 0.3"
         ></a-gltf-model>
       </a-entity>
     </a-scene>
 
-    <!-- Link UI -->
+    <!-- UI -->
     <button id="link-button">Links NOO Works</button>
     <div id="menu">
       <button id="close-menu">✕</button>
