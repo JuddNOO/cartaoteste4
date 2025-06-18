@@ -71,14 +71,16 @@
              vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
 
       <a-assets>
+        <img id="card" src="CartaoTeste_NOO.png" />
         <a-asset-item id="avatarModel" src="shapes_teste4.glb"></a-asset-item>
+        <a-asset-item id="occluderModel" src="OccluderTestFlip.glb"></a-asset-item>
         <a-asset-item id="ringsModel" src="Rings2.glb"></a-asset-item>
       </a-assets>
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-        <!-- 3D main model -->
+        <!-- Main 3D animated shape -->
         <a-gltf-model
           id="model"
           rotation="0 0 0"
@@ -89,23 +91,26 @@
           animation__scale="property: scale; from: 0.1 0.1 0.1; to: 0.15 0.15 0.15; dur: 4000; dir: alternate; easing: easeInOutSine; loop: true"
         ></a-gltf-model>
 
-        <!-- Occluder: invisible but blocks -->
-        <a-box
-          position="0 0 0"
-          depth="0.01" height="0.5" width="0.9"
-          material="color: #000000; shader: flat; depthWrite: true; colorWrite: false;"
-        ></a-box>
+        <!-- Occluder (invisible but depth-writing) -->
+        <a-gltf-model
+          src="#occluderModel"
+          position="0 0 0.01"
+          scale="1 1 1"
+          material="color: #000; shader: flat; depthWrite: true; depthTest: true; colorWrite: false;"
+          render-order="1">
+        </a-gltf-model>
 
-        <!-- Portal content inside occluder -->
+        <!-- Rings inside the portal -->
         <a-gltf-model
           src="#ringsModel"
           position="0 0 -0.05"
           scale="0.3 0.3 0.3"
-        ></a-gltf-model>
+          rotation="0 0 0">
+        </a-gltf-model>
       </a-entity>
     </a-scene>
 
-    <!-- Link UI -->
+    <!-- Button and Menu UI -->
     <button id="link-button">Links NOO Works</button>
     <div id="menu">
       <button id="close-menu">✕</button>
